@@ -87,16 +87,21 @@ namespace Unit_Testovi
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void IzlistavanjeSvihPorukaSaSadrzajem1()
+        public void PromjenaParametara()
         {
-            string sadrzaj = "sadrzaj";
-            Komunikator k = new Komunikator();
-            k.IzlistavanjeSvihPorukaSaSadržajem(sadrzaj);
+            Korisnik k1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false, 10);
+            Korisnik k2 = new Korisnik("user2", "user2*+", Lokacija.Sarajevo, Lokacija.Bihać, 20, false, 15);
+            
+            k1.PromjenaParametara(true);
 
+            Assert.AreEqual(k1.Lokacija, k1.ZeljenaLokacija);
+            Assert.AreEqual(k1.ZeljeniMinGodina, k1.Godine - 2);
+
+            k2.PromjenaParametara(false);
+
+            Assert.AreNotEqual(k2.Lokacija, k2.ZeljenaLokacija);
+            Assert.AreEqual(k2.ZeljeniMaxGodina, k2.Godine + 10);
         }
-
-
 
         #endregion
     }
