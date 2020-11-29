@@ -89,7 +89,29 @@ namespace Kupid
         /// </summary>
         public List<Poruka> IzlistavanjeSvihPorukaSaSadržajem(string sadržaj)
         {
-            throw new NotImplementedException();
+            if (razgovori.Count == 0) throw new ArgumentNullException("greska");
+            List<Poruka> vracam = new List<Poruka>();
+            for (int i = 0; i < razgovori.Count; i++)
+            {
+                for (int t = 0; t < razgovori[i].Korisnici.Count; t++)
+                {
+                    if (!razgovori[i].Korisnici[t].Equals("admin"))
+                    {
+                        List<Poruka> lokalne = razgovori[i].Poruke;
+                        for (int j = 0; j < lokalne.Count; j++)
+                        {
+                            if (lokalne[j].Sadrzaj.Contains(sadržaj) && !lokalne[j].Posiljalac.Ime.Equals("admin") &&
+                                !lokalne[j].Primalac.Ime.Equals("admin") && !vracam.Contains(lokalne[j]))
+                            {
+                                vracam.Add(lokalne[j]);
+                            }
+                        }
+
+                    }
+                }
+            }
+            if (vracam.Count == 0) throw new ArgumentNullException("greska");
+            return vracam;
         }
 
         public bool DaLiJeSpajanjeUspjesno(Chat c, IRecenzija r)
