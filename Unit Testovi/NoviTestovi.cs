@@ -1,7 +1,6 @@
 ﻿using Kupid;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 
 namespace Unit_Testovi
 {
@@ -103,6 +102,63 @@ namespace Unit_Testovi
             Assert.AreNotEqual(k2.Lokacija, k2.ZeljenaLokacija);
             Assert.AreEqual(k2.ZeljeniMaxGodina, k2.Godine + 10);
         }
+
+        [TestMethod]
+        public void IzracunajKompatibilnostKorisnika()
+        {
+            Korisnik k1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 30, false);
+            Korisnik k2 = new Korisnik("user2", "user2*+", Lokacija.Sarajevo, Lokacija.Bihać, 20, false);
+
+            Korisnik k3 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 30, false);
+            Korisnik k4 = new Korisnik("user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 20, false);
+
+            Korisnik k5 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 30, false, 26, 35);
+            Korisnik k6 = new Korisnik("user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 20, true, 15, 27);
+
+            Korisnik k7 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 30, false, 26, 35);
+            Korisnik k8 = new Korisnik("user2", "user2*+", Lokacija.Sarajevo, Lokacija.Bihać, 30, false, 25, 27);
+
+            Korisnik k9 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 30, false, 26, 35);
+            Korisnik k10 = new Korisnik("user2", "user2*+", Lokacija.Sarajevo, Lokacija.Bihać, 30, false, 26, 37);
+
+            Poruka p1 = new Poruka(k1, k2, "Grrr");
+            Poruka p2 = new Poruka(k3, k4, "volim te");
+            Poruka p3 = new Poruka(k5, k6, "hahahah");
+            Poruka p4 = new Poruka(k7, k8, "hohohoh");
+            Poruka p5 = new Poruka(k9, k10, "kikiki");
+
+            //Testiramo korisnike sa razlicitim godinama
+            double broj1 = p1.IzračunajKompatibilnostKorisnika();
+
+            //Testiramo text "volim te"
+            double broj2 = p2.IzračunajKompatibilnostKorisnika();
+
+            //Velika razlika u godinama
+            double broj3 = p3.IzračunajKompatibilnostKorisnika();
+
+            double broj4 = p4.IzračunajKompatibilnostKorisnika();
+
+            double broj5 = p5.IzračunajKompatibilnostKorisnika();
+
+            Assert.AreEqual(broj1, 25);
+            Assert.AreEqual(broj2, 100);
+            Assert.AreEqual(broj3, 0);
+            Assert.AreEqual(broj4, 50);
+            Assert.AreEqual(broj5, 75);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void IzracunajKompatibilnostKorisnika1()
+        {
+            Korisnik k1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 30, false, 7, 20);
+            Korisnik k2 = new Korisnik("user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 20, true, 20, 7);
+
+            Poruka p = new Poruka(k1, k2, "hahha");
+        }
+
+
+
 
         #endregion
     }
