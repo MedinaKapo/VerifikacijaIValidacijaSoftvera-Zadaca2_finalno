@@ -150,8 +150,36 @@ namespace Kupid
         /// </summary>
         /// <param name="slično"></param>
         public void PromjenaParametara(bool slično)
-        { 
-            throw new NotImplementedException();
+        {
+            if (slično)
+            {
+                zeljenaLokacija = lokacija;
+                zeljeniMinGodina = godine - 2;
+                ZeljeniMaxGodina = godine + 2;
+            }
+            else
+            {
+                while (true)
+                {
+
+                    Random random = new Random();
+                    Type type = typeof(Lokacija);
+
+                    Array values = type.GetEnumValues();
+                    //Array values = Enum.GetValues(type);
+
+                    int index = random.Next(values.Length);
+                    Lokacija value = (Lokacija)values.GetValue(index);
+
+                    if (value != lokacija)
+                    {
+                        zeljenaLokacija = value;
+                        break;
+                    }
+                }
+                zeljeniMinGodina = godine - 10;
+                ZeljeniMaxGodina = godine + 10;
+            }
         }
 
         #endregion

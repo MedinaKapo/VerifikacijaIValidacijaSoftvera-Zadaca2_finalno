@@ -61,7 +61,21 @@ namespace Kupid
         /// <returns></returns>
         public double IzračunajKompatibilnostKorisnika()
         {
-            throw new NotImplementedException();
+            double kompatiblinost = 0;
+            int brojKompatibilnosti = 0;
+            if (posiljalac.ZeljeniMaxGodina == primalac.ZeljeniMaxGodina) brojKompatibilnosti++;
+            if (posiljalac.Lokacija == primalac.Lokacija) brojKompatibilnosti++;
+            if (posiljalac.ZeljeniMinGodina == primalac.ZeljeniMinGodina) brojKompatibilnosti++;
+            if (posiljalac.Godine == primalac.Godine) brojKompatibilnosti++;
+            else if (sadrzaj.Contains("volim te")) { kompatiblinost = 100; brojKompatibilnosti = 4; }
+
+            if (brojKompatibilnosti == 4) kompatiblinost = 100;
+            else if (brojKompatibilnosti == 3) kompatiblinost = 75;
+            else if (brojKompatibilnosti == 2) kompatiblinost = 50;
+            else if (brojKompatibilnosti == 1) kompatiblinost = 25;
+            else kompatiblinost = 0;
+
+            return kompatiblinost;
         }
 
         #endregion
