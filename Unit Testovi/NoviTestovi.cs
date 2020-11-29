@@ -4,6 +4,19 @@ using System;
 
 namespace Unit_Testovi
 {
+    /*kreirana je klasa Recenzija1.
+     * Ova klasa treba da sadrzi implementaciju metode DatjUtisak(), koja treba da vraca vrijednost "Pozitivan", ukoliko
+     *zelimo da nam prodje definisani test.*/
+
+    public class Recenzija1 : IRecenzija
+    {
+
+
+        string IRecenzija.DajUtisak()
+        {
+            return "Pozitivan";
+        }
+    }
     [TestClass]
     public class NoviTestovi
     {
@@ -17,7 +30,7 @@ namespace Unit_Testovi
 
             Chat chat = new Chat(k1, k2);
             chat.DodajNovuPoruku(k1, k2, "volim te");
-            IRecenzija r = new Recenzija();
+            IRecenzija r = new Recenzija1();
 
             Komunikator k = new Komunikator();
             bool uspješnost = k.DaLiJeSpajanjeUspjesno(chat, r);
