@@ -83,6 +83,13 @@ namespace Kupid
         public void DodajNovuPoruku(Korisnik primalac, Korisnik posiljalac, string sadrzaj)
         {
             throw new NotImplementedException();
+
+            korisnici.Add(primalac);
+            korisnici.Add(posiljalac);
+            if (poruke.Count == 0) pocetakChata = DateTime.Now;
+            najnovijaPoruka = DateTime.Now;
+            Poruka nova = new Poruka(primalac, posiljalac, sadrzaj);
+            poruke.Add(nova);
         }
 
         #endregion
