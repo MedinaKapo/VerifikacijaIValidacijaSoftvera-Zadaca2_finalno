@@ -155,7 +155,14 @@ namespace Unit_Testovi
             List<Poruka> rezultatFunkcije = k.IzlistavanjeSvihPorukaSaSadržajem(sadrzaj);
             Assert.AreEqual(rezultatFunkcije.Count, 2);
 
+        }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void IzlistavanjeSvihPorukaSaSadrzajem3()
+        {
+            Komunikator k = new Komunikator();
+            k.IzlistavanjeSvihPorukaSaSadržajem("matematika");
         }
 
 
