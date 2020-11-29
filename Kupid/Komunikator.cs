@@ -107,7 +107,27 @@ namespace Kupid
 
         public void SpajanjeKorisnika()
         {
-            throw new NotImplementedException();
+            Korisnik k1 = new Korisnik();
+            if (korisnici.Count != 0)
+                k1 = korisnici[0];
+            else throw new ArgumentException("greska");
+            Korisnik k2 = new Korisnik();
+            for (int i = 1; i < korisnici.Count; i++)
+            {
+                k2 = korisnici[i];
+                if ((k1.Lokacija == k2.Lokacija && k1.ZeljenaLokacija == k2.ZeljenaLokacija && k1.Godine == k2.Godine) ||
+                    (k1.Lokacija == k2.Lokacija && k1.ZeljenaLokacija == k2.ZeljenaLokacija) || (k1.Lokacija == k2.Lokacija &&
+                    k1.Godine == k2.Godine))
+                {
+                    Chat novi = new Chat(k1, k2);
+                    razgovori.Add(novi);
+                }
+                else
+                {
+                    throw new ArgumentException("greska");
+                }
+
+            }
         }
 
         #endregion
