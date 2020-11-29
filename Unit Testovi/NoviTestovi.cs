@@ -165,6 +165,50 @@ namespace Unit_Testovi
             k.IzlistavanjeSvihPorukaSaSadržajem("matematika");
         }
 
+        [TestMethod]
+        public void IzlistavanjeSvihPorukaSaSadrzajem4()
+        {
+            string sadrzaj1 = "matematika mi je bila omiljeni predmet";
+            Komunikator k = new Komunikator();
+            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Trebinje, 20, false);
+            Korisnik korisnik2 = new Korisnik("admin", "user2*+", Lokacija.Sarajevo, Lokacija.Bihać, 25, false);
+            Chat chat1 = new Chat(korisnik1, korisnik2);
+            chat1.DodajNovuPoruku(korisnik1, korisnik2, sadrzaj1);
+            List<Korisnik> prvaLista = new List<Korisnik>();
+            prvaLista.Add(korisnik1);
+            prvaLista.Add(korisnik2);
+            string sadrzaj2 = "matematika mi nije bila iomiljeni predmet";
+            Korisnik korisnik3 = new Korisnik("user3", "user3*+", Lokacija.Sarajevo, Lokacija.Trebinje, 20, false);
+            Korisnik korisnik4 = new Korisnik("user4", "user4*+", Lokacija.Sarajevo, Lokacija.Bihać, 25, false);
+            Chat chat2 = new Chat(korisnik3, korisnik4);
+            chat1.DodajNovuPoruku(korisnik3, korisnik4, sadrzaj2);
+            List<Korisnik> drugaLista = new List<Korisnik>();
+            drugaLista.Add(korisnik3);
+            drugaLista.Add(korisnik4);
+            string sadrzaj3 = "fizika mi je bila draga";
+            Korisnik korisnik5 = new Korisnik("user5", "user5*+", Lokacija.Sarajevo, Lokacija.Trebinje, 20, false);
+            Korisnik korisnik6 = new Korisnik("user6", "user6*+", Lokacija.Sarajevo, Lokacija.Bihać, 25, false);
+            Chat chat3 = new Chat(korisnik5, korisnik6);
+            chat1.DodajNovuPoruku(korisnik5, korisnik6, sadrzaj3);
+            List<Korisnik> trecaLista = new List<Korisnik>();
+            trecaLista.Add(korisnik5);
+            trecaLista.Add(korisnik6);
+            string sadrzaj = "matematika";
+            k.RadSaKorisnikom(korisnik1, 0);
+            k.RadSaKorisnikom(korisnik2, 0);
+            k.RadSaKorisnikom(korisnik3, 0);
+            k.RadSaKorisnikom(korisnik4, 0);
+            k.RadSaKorisnikom(korisnik5, 0);
+            k.RadSaKorisnikom(korisnik6, 0);
+            k.Razgovori.Add(chat1);
+            k.Razgovori.Add(chat2);
+            k.Razgovori.Add(chat3);
+
+            List<Poruka> rezultatFunkcije = k.IzlistavanjeSvihPorukaSaSadržajem(sadrzaj);
+            Assert.AreEqual(rezultatFunkcije.Count, 1);
+
+        }
+
 
 
 
