@@ -86,6 +86,16 @@ namespace Unit_Testovi
             k.SpajanjeKorisnika();
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void IzlistavanjeSvihPorukaSaSadrzajem1()
+        {
+            string sadrzaj = "sadrzaj";
+            Komunikator k = new Komunikator();
+            k.IzlistavanjeSvihPorukaSaSadržajem(sadrzaj);
+
+        }
+
         #endregion
     }
 }
