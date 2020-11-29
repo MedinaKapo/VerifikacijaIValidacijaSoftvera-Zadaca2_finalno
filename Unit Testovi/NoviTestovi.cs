@@ -103,6 +103,21 @@ namespace Unit_Testovi
             Assert.AreEqual(k2.ZeljeniMaxGodina, k2.Godine + 10);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void IzlistavanjeSvihPorukaSaSadrzajem1()
+        {
+            string sadrzaj = "sadrzaj";
+            Komunikator k = new Komunikator();
+            k.IzlistavanjeSvihPorukaSaSadržajem(sadrzaj);
+        }
+
+
+
+
+
+
+
         #endregion
     }
 }
