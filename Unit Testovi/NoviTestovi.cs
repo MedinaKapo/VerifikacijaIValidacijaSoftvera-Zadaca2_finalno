@@ -287,6 +287,18 @@ namespace Unit_Testovi
 
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void KonstruktorIzuzetak()
+        {
+            Korisnik korisnik1 = null;
+            Korisnik korisnik2 = new Korisnik("user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true);
+            string sadrzaj = "sadrzaj";
+            Poruka poruka1 = new Poruka(korisnik1, korisnik2, sadrzaj);
+
+        }
+
+
 
 
 
