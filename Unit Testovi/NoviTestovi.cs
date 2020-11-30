@@ -317,6 +317,13 @@ namespace Unit_Testovi
 
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void SpajanjeKorisnikaIzuzetakMoj()
+        {
+            Komunikator k = new Komunikator();
+            k.SpajanjeKorisnika();
+        }
 
 
 
