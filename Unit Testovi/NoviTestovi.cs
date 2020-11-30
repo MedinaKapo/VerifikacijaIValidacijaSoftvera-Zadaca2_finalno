@@ -398,6 +398,22 @@ namespace Unit_Testovi
             Assert.ReferenceEquals(k.Razgovori, noviChat);
         }
 
+        [TestMethod]
+        public void DodavanjeRazgovora5()
+        {
+            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
+            Korisnik korisnik2 = new Korisnik("user2", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
+            List<Korisnik> lista = new List<Korisnik>();
+            lista.Add(korisnik1);
+            lista.Add(korisnik2);
+            GrupniChat noviChat = new GrupniChat(lista);
+            Komunikator k = new Komunikator();
+            k.DodavanjeRazgovora(lista, true);
+            Assert.IsFalse(Assert.ReferenceEquals(k.Razgovori[0], noviChat));
+        }
+
+
+
 
 
 
