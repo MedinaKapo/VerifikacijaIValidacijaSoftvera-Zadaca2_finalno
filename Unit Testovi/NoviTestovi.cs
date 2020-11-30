@@ -427,6 +427,18 @@ namespace Unit_Testovi
             Assert.IsFalse(Assert.ReferenceEquals(k.Razgovori[0], chat1));
         }
 
+        [TestMethod]
+        public void RadSaKorisnikom2()
+        {
+            Komunikator k = new Komunikator();
+            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
+            Korisnik korisnik2 = new Korisnik("user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true);
+            k.RadSaKorisnikom(korisnik1, 0);
+            k.RadSaKorisnikom(korisnik2, 0);
+            k.RadSaKorisnikom(korisnik2, 1);
+            Assert.AreEqual(k.Korisnici.Count, 1);
+        }
+
 
 
 
