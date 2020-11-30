@@ -257,6 +257,14 @@ namespace Unit_Testovi
             Assert.AreEqual(rezultatFunckije.Count, 1);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void IzlistavanjeSvihPorukaSaSadrzajem3()
+        {
+            Komunikator k = new Komunikator();
+            k.IzlistavanjeSvihPorukaSaSadržajem("matematika");
+        }
+
 
 
 
