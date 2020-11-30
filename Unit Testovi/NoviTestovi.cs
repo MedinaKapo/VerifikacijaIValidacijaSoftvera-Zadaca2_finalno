@@ -336,6 +336,16 @@ namespace Unit_Testovi
 
                 }
 
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void RadSaKorisnikomIzuzetak2()
+        {
+            Komunikator k = new Komunikator();
+            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
+            k.RadSaKorisnikom(korisnik1, 1);
+
+        }
+
 
 
 
