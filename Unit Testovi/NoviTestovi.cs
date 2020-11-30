@@ -157,6 +157,16 @@ namespace Unit_Testovi
             Poruka p = new Poruka(k1, k2, "hahha");
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void IzlistavanjaSvihPorukaSaSadrzajem1()
+        {
+            string sadrzaj = "sadrzaj";
+            Komunikator k = new Komunikator();
+            k.IzlistavanjeSvihPorukaSaSadržajem(sadrzaj);
+        }
+
+
 
 
 
