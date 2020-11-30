@@ -356,6 +356,19 @@ namespace Unit_Testovi
         }
 
 
+        [TestMethod]
+        public void DodavanjeRazgovoraIzuzetak2()
+        {
+            List<Korisnik> lista = new List<Korisnik>();
+            Komunikator k = new Komunikator();
+            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
+            lista.Add(korisnik1);
+            var ex = Assert.ThrowsException<ArgumentException>(() => k.DodavanjeRazgovora(lista, true));
+            Assert.AreEqual(ex.Message, ("Nemoguće dodati razgovor!"));
+        }
+
+
+
 
 
 
