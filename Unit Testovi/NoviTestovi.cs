@@ -298,6 +298,27 @@ namespace Unit_Testovi
 
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void DaLiJeSpajanjeUspjesnoIzuzetak()
+        {
+            IRecenzija r = new Recenzija();
+            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
+            Korisnik korisnik2 = new Korisnik("user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true);
+            Korisnik korisnik3 = new Korisnik("user3", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 25, false);
+            List<Korisnik> listaKorisnika = new List<Korisnik>();
+            listaKorisnika.Add(korisnik1);
+            listaKorisnika.Add(korisnik2);
+            listaKorisnika.Add(korisnik3);
+
+            Chat noviChat = new GrupniChat(listaKorisnika);
+            Komunikator k = new Komunikator();
+            k.DaLiJeSpajanjeUspjesno(noviChat, r);
+
+        }
+
+
+
 
 
 
