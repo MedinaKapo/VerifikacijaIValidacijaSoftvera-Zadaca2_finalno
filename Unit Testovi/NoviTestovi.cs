@@ -265,6 +265,18 @@ namespace Unit_Testovi
             k.IzlistavanjeSvihPorukaSaSadržajem("matematika");
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void sadrzajPorukeIzuzetak()
+        {
+            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
+            Korisnik korisnik2 = new Korisnik("user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true);
+            string sadrzaj = "";
+            Poruka poruka1 = new Poruka(korisnik1, korisnik2, sadrzaj);
+
+        }
+
+
 
 
 
