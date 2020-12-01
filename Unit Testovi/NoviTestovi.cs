@@ -545,6 +545,27 @@ namespace Unit_Testovi
 
         }
 
+        [TestMethod]
+        [DynamicData("PodaciKorisnikValidni")]
+        public void GrupniChat(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
+        {
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced, minDesiredAge, maxDesiredAge);
+            Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced, minDesiredAge, maxDesiredAge);
+            List<Korisnik> lista = new List<Korisnik>();
+            lista.Add(korisnik1);
+            lista.Add(korisnik2);
+            GrupniChat grupniChat = new GrupniChat(lista);
+            Assert.AreEqual(lista, grupniChat.Korisnici);
+            grupniChat.PocetakChata = DateTime.Today.AddDays(-1);
+            Assert.AreEqual(grupniChat.PocetakChata, DateTime.Today.AddDays(-1));
+            Assert.IsNotNull(grupniChat.Poruke);
+            List<Korisnik> praznaLista = null;
+            GrupniChat grupniChat1 = new GrupniChat(praznaLista);
+            Assert.IsNotNull(grupniChat1.Korisnici);
+        }
+
+
+
 
 
 
