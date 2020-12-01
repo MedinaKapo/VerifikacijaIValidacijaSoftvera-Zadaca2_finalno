@@ -486,6 +486,25 @@ namespace Unit_Testovi
             k.RadSaKorisnikom(korisnik2, 1);
             Assert.AreEqual(k.Razgovori.Count, 0);
         }
+        [TestMethod]
+        [DynamicData("Podaci")]
+        public void PosaljiPorukuViseKorisnikaIzuzetak(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
+        {
+            Korisnik sender = null;
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik3 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            List<Korisnik> lista = new List<Korisnik>();
+            lista.Add(korisnik1);
+            lista.Add(korisnik2);
+            lista.Add(korisnik3);
+            string sadrzaj = "sadrzaj";
+            GrupniChat grupniChat = new GrupniChat(lista);
+            var ex = Assert.ThrowsException<FormatException>(() => grupniChat.PosaljiPorukuViseKorisnika(sender, lista, sadrzaj));
+            Assert.AreEqual(ex.Message, ("Neispravni parametri!"));
+        }
+
+
         #endregion
     }
 }
