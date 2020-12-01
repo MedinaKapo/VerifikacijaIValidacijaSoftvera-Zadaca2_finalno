@@ -514,6 +514,15 @@ namespace Unit_Testovi
                 Assert.AreEqual(korisnik1.Razvod, true);
         }
 
+        [TestMethod]
+        [DynamicData("PodaciKorisnikValidni")]
+        public void KorisnikPodaciValidni2(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
+        {
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Assert.IsNotNull(korisnik1.Password);
+        }
+
+
 
 
         #endregion
