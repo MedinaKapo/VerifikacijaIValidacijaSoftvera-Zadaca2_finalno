@@ -1,0 +1,5 @@
+﻿ID,Ime,Password,Lokacija,ZeljenaLokacija,Godine,ZeljeniMinGodina,ZeljeniMaxGodina,Razvod
+1,korisnik,password,Sarajevo,20,false
+2,korisnik2,password2,Sarajevo,30,false
+3,korisnik3,password3,Tuzla,25,false
+4,korisnik4,password4,Mostar,28,true

@@ -18,4 +18,10 @@
     <ProjectReference Include="..\Kupid\Kupid.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="podaci2.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

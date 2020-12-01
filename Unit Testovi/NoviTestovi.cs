@@ -18,24 +18,28 @@ namespace Unit_Testovi
             return "Pozitivan";
         }
     }
-
-   
-        
-    
     [TestClass]
+ 
+ 
     public class NoviTestovi
     {
-        
+           
+  
         static IEnumerable<object[]> Podaci
         {
             get
             {
                 return new[]
               { new object[] { "user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false},
-               new object[] { "user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true}
+                new object[] { "user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true},
+                new object[] { "user3", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false }
                 };
             }
         }
+
+       
+
+
         #region Zamjenski Objekti
 
         [TestMethod]
@@ -282,10 +286,11 @@ namespace Unit_Testovi
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void sadrzajPorukeIzuzetak()
+        [DynamicData("Podaci")]
+        public void sadrzajPorukeIzuzetak(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
         {
-            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
-            Korisnik korisnik2 = new Korisnik("user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true);
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
             string sadrzaj = "";
             Poruka poruka1 = new Poruka(korisnik1, korisnik2, sadrzaj);
 
@@ -293,10 +298,11 @@ namespace Unit_Testovi
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void sadrzajPorukeIzuzetak2()
+        [DynamicData("Podaci")]
+        public void sadrzajPorukeIzuzetak2(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
         {
-            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
-            Korisnik korisnik2 = new Korisnik("user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true);
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
             string sadrzaj = "pogrdna riječ";
             Poruka poruka1 = new Poruka(korisnik1, korisnik2, sadrzaj);
 
@@ -304,10 +310,11 @@ namespace Unit_Testovi
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void KonstruktorIzuzetak()
+        [DynamicData("Podaci")]
+        public void KonstruktorIzuzetak(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
         {
             Korisnik korisnik1 = null;
-            Korisnik korisnik2 = new Korisnik("user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true);
+            Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
             string sadrzaj = "sadrzaj";
             Poruka poruka1 = new Poruka(korisnik1, korisnik2, sadrzaj);
 
@@ -315,12 +322,13 @@ namespace Unit_Testovi
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void DaLiJeSpajanjeUspjesnoIzuzetak()
+        [DynamicData("Podaci")]
+        public void DaLiJeSpajanjeUspjesnoIzuzetak(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
         {
             IRecenzija r = new Recenzija();
-            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
-            Korisnik korisnik2 = new Korisnik("user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true);
-            Korisnik korisnik3 = new Korisnik("user3", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 25, false);
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik3 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
             List<Korisnik> listaKorisnika = new List<Korisnik>();
             listaKorisnika.Add(korisnik1);
             listaKorisnika.Add(korisnik2);
@@ -342,10 +350,12 @@ namespace Unit_Testovi
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void RadSaKorisnikomIzuzetak1(){
+        [DynamicData("Podaci")]
+        public void RadSaKorisnikomIzuzetak1(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
+        {
         Komunikator k=new Komunikator();
-            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
-            Korisnik korisnik2 = new Korisnik("user1", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true);
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
             k.RadSaKorisnikom(korisnik1,0);
             k.RadSaKorisnikom(korisnik2,0);
 
@@ -370,26 +380,36 @@ namespace Unit_Testovi
             Assert.AreEqual(ex.Message, ("Nemoguće dodati razgovor!"));
         }
 
+        [TestMethod]
+        public void GrupniChatNull()
+        {
+            List<Korisnik> lista = new List<Korisnik>();
+            GrupniChat grupniChat = new GrupniChat(lista);
+            Assert.IsNotNull(grupniChat.Korisnici);
+        }
+
 
         [TestMethod]
-        public void DodavanjeRazgovoraIzuzetak2()
+        [DynamicData("Podaci")]
+        public void DodavanjeRazgovoraIzuzetak2(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
         {
             List<Korisnik> lista = new List<Korisnik>();
             Komunikator k = new Komunikator();
-            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
             lista.Add(korisnik1);
             var ex = Assert.ThrowsException<ArgumentException>(() => k.DodavanjeRazgovora(lista, true));
             Assert.AreEqual(ex.Message, ("Nemoguće dodati razgovor!"));
         }
 
         [TestMethod]
-        public void DodavanjeRazgovoraIzuzetak3()
+        [DynamicData("Podaci")]
+        public void DodavanjeRazgovoraIzuzetak3(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
         {
             List<Korisnik> lista = new List<Korisnik>();
             Komunikator k = new Komunikator();
-            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
-            Korisnik korisnik2 = new Korisnik("user2", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
-            Korisnik korisnik3 = new Korisnik("user3", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik3 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
             lista.Add(korisnik1);
             lista.Add(korisnik2);
             lista.Add(korisnik3);
@@ -398,11 +418,12 @@ namespace Unit_Testovi
         }
 
         [TestMethod]
-        public void DodavanjeRazgovora4()
+        [DynamicData("Podaci")]
+        public void DodavanjeRazgovora4(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
         {
-            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
-            Korisnik korisnik2 = new Korisnik("user2", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
-            Korisnik korisnik3 = new Korisnik("user3", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik3= new Korisnik(name, pass, location, desiredLoc, age, divorced);
             List<Korisnik> lista = new List<Korisnik>();
             lista.Add(korisnik1);
             lista.Add(korisnik2);
@@ -414,10 +435,11 @@ namespace Unit_Testovi
         }
 
         [TestMethod]
-        public void DodavanjeRazgovora5()
+        [DynamicData("Podaci")]
+        public void DodavanjeRazgovora5(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
         {
-            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
-            Korisnik korisnik2 = new Korisnik("user2", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
             List<Korisnik> lista = new List<Korisnik>();
             lista.Add(korisnik1);
             lista.Add(korisnik2);
@@ -469,28 +491,6 @@ namespace Unit_Testovi
             k.RadSaKorisnikom(korisnik2, 1);
             Assert.AreEqual(k.Razgovori.Count, 0);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
