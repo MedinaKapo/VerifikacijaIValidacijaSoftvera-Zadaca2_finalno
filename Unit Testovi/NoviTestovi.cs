@@ -23,6 +23,18 @@ namespace Unit_Testovi
  
     public class NoviTestovi
     {
+
+        static IEnumerable<object[]> Podaci
+        {
+            get
+            {
+                return new[]
+              { new object[] { "user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false},
+                new object[] { "user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true},
+                new object[] { "user3", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false }
+                };
+            }
+        }
         static IEnumerable<object[]> PodaciKorisnikValidni
         {
             get
@@ -520,6 +532,17 @@ namespace Unit_Testovi
         {
             Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
             Assert.IsNotNull(korisnik1.Password);
+        }
+
+        [TestMethod]
+        [DynamicData("PodaciKorisnikValidni")]
+        public void ChatPodaciValidni4(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
+        {
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced, minDesiredAge, maxDesiredAge);
+            Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced, minDesiredAge, maxDesiredAge);
+            Chat noviChat = new Chat(korisnik1, korisnik2);
+            Assert.IsNotNull(noviChat);
+
         }
 
 
