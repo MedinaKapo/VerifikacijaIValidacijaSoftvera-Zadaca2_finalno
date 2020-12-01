@@ -23,7 +23,7 @@ namespace Unit_Testovi
  
     public class NoviTestovi
     {
-        static IEnumerable<object[]> Podaci
+        static IEnumerable<object[]> PodaciKorisnikValidni
         {
             get
             {
