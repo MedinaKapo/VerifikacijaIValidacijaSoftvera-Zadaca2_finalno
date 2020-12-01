@@ -563,11 +563,7 @@ namespace Unit_Testovi
             GrupniChat grupniChat1 = new GrupniChat(praznaLista);
             Assert.IsNotNull(grupniChat1.Korisnici);
         }
-
-
-
-
-
+        /*komentar*/
 
         #endregion
     }
