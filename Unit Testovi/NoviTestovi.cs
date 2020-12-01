@@ -428,10 +428,11 @@ namespace Unit_Testovi
         }
 
         [TestMethod]
-        public void DodavanjeRazgovora6()
+        [DynamicData("Podaci")]
+        public void DodavanjeRazgovora6(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
         {
-            Korisnik korisnik1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
-            Korisnik korisnik2 = new Korisnik("user2", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false);
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
             List<Korisnik> lista = new List<Korisnik>();
             lista.Add(korisnik1);
             lista.Add(korisnik2);
@@ -450,7 +451,6 @@ namespace Unit_Testovi
             Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
             Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
             k.RadSaKorisnikom(korisnik1, 0);
-            //k.RadSaKorisnikom(korisnik2, 0);
             k.RadSaKorisnikom(korisnik2, 1);
             Assert.AreEqual(k.Korisnici.Count, 1);
         }
