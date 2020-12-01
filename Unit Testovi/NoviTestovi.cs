@@ -21,6 +21,18 @@ namespace Unit_Testovi
     [TestClass]
     public class NoviTestovi
     {
+        static IEnumerable<object[]> Podaci
+        {
+            get
+            {
+                return new[]
+              { new object[] { "user1", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false},
+                new object[] { "user2", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true},
+                new object[] { "user3", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false }
+                };
+            }
+        }
+
         #region Zamjenski Objekti
 
         [TestMethod]
@@ -454,29 +466,6 @@ namespace Unit_Testovi
             k.RadSaKorisnikom(korisnik2, 1);
             Assert.AreEqual(k.Razgovori.Count, 0);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         #endregion
     }
 }
