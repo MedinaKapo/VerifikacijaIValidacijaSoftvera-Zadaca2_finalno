@@ -23,8 +23,6 @@ namespace Unit_Testovi
  
     public class NoviTestovi
     {
-           
-  
         static IEnumerable<object[]> Podaci
         {
             get
@@ -36,9 +34,6 @@ namespace Unit_Testovi
                 };
             }
         }
-
-       
-
 
         #region Zamjenski Objekti
 
@@ -491,9 +486,6 @@ namespace Unit_Testovi
             k.RadSaKorisnikom(korisnik2, 1);
             Assert.AreEqual(k.Razgovori.Count, 0);
         }
-
-
-
         #endregion
     }
 }
