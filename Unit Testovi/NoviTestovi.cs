@@ -278,7 +278,7 @@ namespace Unit_Testovi
 
             Poruka p = new Poruka(k1, k2, "hahha");
         }
-        //Medina Kapo
+        //Sata Makešoska-Džebo
         [TestMethod]
         public void IzlistavanjaSvihPorukaSaSadrzajem1()
         {
