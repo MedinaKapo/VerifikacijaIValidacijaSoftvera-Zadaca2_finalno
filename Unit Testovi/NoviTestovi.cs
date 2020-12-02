@@ -726,12 +726,23 @@ namespace Unit_Testovi
 
         [TestMethod]
         [DynamicData("ChatPodaciValidni")]
+        public void ChatPodaciValidni2(DateTime vrijeme)
+        {
+            Chat noviChat = new Chat();
+            Assert.IsTrue(noviChat.PocetakChata < DateTime.Now);
+
+        }
+
+        [TestMethod]
+        [DynamicData("ChatPodaciValidni")]
         public void ChatPodaciValidni3(DateTime vrijeme)
         {
             Chat noviChat = new Chat();
             Assert.IsTrue(noviChat.NajnovijaPoruka < DateTime.Now);
 
         }
+
+
 
 
 
