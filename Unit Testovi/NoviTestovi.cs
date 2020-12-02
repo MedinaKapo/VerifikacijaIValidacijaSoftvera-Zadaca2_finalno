@@ -742,6 +742,13 @@ namespace Unit_Testovi
 
         }
 
+        [TestMethod]
+        public void RecenzyijaNijeImplementirana()
+        {
+            Recenzija r = new Recenzija();
+            Assert.ThrowsException<NotImplementedException>(() => r.DajUtisak());
+        }
+
 
 
 
