@@ -408,7 +408,6 @@ namespace Unit_Testovi
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         [DynamicData("Podaci")]
         public void DaLiJeSpajanjeUspjesnoIzuzetak(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
         {
@@ -423,16 +422,16 @@ namespace Unit_Testovi
 
             Chat noviChat = new GrupniChat(listaKorisnika);
             Komunikator k = new Komunikator();
-            k.DaLiJeSpajanjeUspjesno(noviChat, r);
 
+            Assert.ThrowsException<InvalidOperationException>(() => k.DaLiJeSpajanjeUspjesno(noviChat, r));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+       // [ExpectedException(typeof(ArgumentException))]
         public void SpajanjeKorisnikaIzuzetakMoj()
         {
             Komunikator k = new Komunikator();
-            k.SpajanjeKorisnika();
+            Assert.ThrowsException<ArgumentException>(() => k.SpajanjeKorisnika());
         }
 
         [TestMethod]
