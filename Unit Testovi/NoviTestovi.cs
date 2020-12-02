@@ -104,6 +104,18 @@ namespace Unit_Testovi
             }
         }
 
+        static IEnumerable<object[]> ChatPodaciNeValidni
+        {
+            get
+            {
+                return new[]
+                { new object[] { DateTime.Today.AddDays(1) },
+                  new object[] { DateTime.Today.AddDays(5) }
+};
+            }
+        }
+
+
         #region Zamjenski Objekti
 
         [TestMethod]
@@ -680,6 +692,17 @@ namespace Unit_Testovi
             StringAssert.Equals(ex.Message, ("Neispravni željeni minimum godina!"));
 
         }
+
+        [TestMethod]
+        [DynamicData("ChatPodaciNeValidni")]
+        public void ChatPodaciNeValidni1(DateTime vrijeme)
+        {
+            Chat noviChat = new Chat();
+            var ex = Assert.ThrowsException<InvalidOperationException>(() => noviChat.PocetakChata = vrijeme);
+            StringAssert.Equals(ex.Message, ("Datum početka ne može biti u budućnosti!"));
+
+        }
+
 
 
 
