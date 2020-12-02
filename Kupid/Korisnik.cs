@@ -149,8 +149,11 @@ namespace Kupid
         /// minimalne željene godine na godine - 10, a maksimalne na godine + 10.
         /// </summary>
         /// <param name="slično"></param>
+        /// 
+        /// Medina Kapo
         public void PromjenaParametara(bool slično)
         {
+            if (lokacija == null || godine == null) throw new ArgumentNullException("Greska");
             if (slično)
             {
                 zeljenaLokacija = lokacija;

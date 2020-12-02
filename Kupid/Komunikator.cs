@@ -87,8 +87,10 @@ namespace Kupid
         /// U razmatranje se uzimaju i grupni, i individualni chatovi, a ne smije se uzeti u razmatranje
         /// nijedan chat u kojem se nalazi korisnik sa imenom "admin".
         /// </summary>
+        /// Amar Bešlagić
         public List<Poruka> IzlistavanjeSvihPorukaSaSadržajem(string sadržaj)
         {
+            if (sadržaj == null) throw new ArgumentNullException("greska");
             if (razgovori.Count == 0) throw new ArgumentNullException("greska");
             List<Poruka> vracam = new List<Poruka>();
             for (int i = 0; i < razgovori.Count; i++)
@@ -126,7 +128,7 @@ namespace Kupid
             else
                 return false;
         }
-
+        //Medina Kapo
         public void SpajanjeKorisnika()
         {
             Korisnik k1 = new Korisnik();

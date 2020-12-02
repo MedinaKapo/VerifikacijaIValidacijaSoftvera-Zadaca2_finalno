@@ -59,6 +59,7 @@ namespace Kupid
         /// ako se podudara jedan, onda je 25% a u suprotnom je 0%.
         /// </summary>
         /// <returns></returns>
+        /// Medina Kapo
         public double IzračunajKompatibilnostKorisnika()
         {
             double kompatiblinost = 0;

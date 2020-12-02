@@ -80,8 +80,10 @@ namespace Kupid
         /// <param name="primalac"></param>
         /// <param name="posiljalac"></param>
         /// <param name="sadrzaj"></param>
+        /// Sara Makešoska-Džebo
         public void DodajNovuPoruku(Korisnik primalac, Korisnik posiljalac, string sadrzaj)
         {
+            if (primalac == null || posiljalac == null) throw new ArgumentNullException("greska");
             korisnici.Add(primalac);
             korisnici.Add(posiljalac);
             if (poruke.Count == 0) pocetakChata = DateTime.Now;
