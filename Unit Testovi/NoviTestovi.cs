@@ -47,6 +47,63 @@ namespace Unit_Testovi
             }
         }
 
+        static IEnumerable<object[]> PodaciKorisnikNeValidni
+        {
+            get
+            {
+                return new[]
+              { new object[] { "korisnikkorisnikkorisnik", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false},
+                new object[] { null,"user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true}
+                };
+            }
+        }
+
+
+        static IEnumerable<object[]> PodaciKorisnikNeValidni2
+        {
+            get
+            {
+                return new[]
+                {new object[] { "user3", null, Lokacija.Sarajevo, Lokacija.Tuzla, 20, false },
+                new object[] { "user4", "etf", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false },
+                new object[] { "user5", "user5*", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false }
+};
+            }
+        }
+
+        static IEnumerable<object[]> PodaciKorisnikNeValidni3
+        {
+            get
+            {
+                return new[]
+                {new object[] { "user5", "user5*+", Lokacija.Sarajevo, Lokacija.Tuzla, 14, false },
+                new object[] { "user6", "user6*+", Lokacija.Sarajevo, Lokacija.Tuzla, 10, false }
+};
+            }
+        }
+
+        static IEnumerable<object[]> PodaciKorisnikNeValidni4
+        {
+            get
+            {
+                return new[]
+                { new object[] { "user6", "user6*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false, 0,35}
+};
+            }
+        }
+
+
+        static IEnumerable<object[]> PodaciKorisnikNeValidni5
+        {
+            get
+            {
+                return new[]
+                { new object[] { "user6", "user6*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false,25,0 },
+                  new object[] { "user6", "user6*+", Lokacija.Sarajevo, Lokacija.Tuzla, 20, false,9,0 }
+};
+            }
+        }
+
         #region Zamjenski Objekti
 
         [TestMethod]
@@ -564,6 +621,67 @@ namespace Unit_Testovi
             Assert.IsNotNull(grupniChat1.Korisnici);
         }
         /*komentar*/
+
+
+        
+
+
+        [TestMethod]
+        [DynamicData("PodaciKorisnikNeValidni")]
+        public void KorisnikPodaciNeValidni(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
+        {
+            Korisnik korisnik1 = new Korisnik();
+
+            var ex = Assert.ThrowsException<FormatException>(() => korisnik1.Ime = name);
+            StringAssert.Equals(ex.Message, ("Neispravno ime!"));
+
+        }
+
+        [TestMethod]
+        [DynamicData("PodaciKorisnikNeValidni2")]
+        public void KorisnikPodaciNeValidni2(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
+        {
+            Korisnik korisnik1 = new Korisnik();
+
+            var ex = Assert.ThrowsException<FormatException>(() => korisnik1.Password = pass);
+            StringAssert.Equals(ex.Message, ("Neispravan password!"));
+
+        }
+
+        [TestMethod]
+        [DynamicData("PodaciKorisnikNeValidni3")]
+        public void KorisnikPodaciNeValidni3(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
+        {
+            Korisnik korisnik1 = new Korisnik();
+
+            var ex = Assert.ThrowsException<FormatException>(() => korisnik1.Godine = age);
+            StringAssert.Equals(ex.Message, ("Neispravne godine!"));
+
+        }
+
+        [TestMethod]
+        [DynamicData("PodaciKorisnikNeValidni4")]
+        public void KorisnikPodaciNeValidni4(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
+        {
+            Korisnik korisnik1 = new Korisnik();
+
+            var ex = Assert.ThrowsException<FormatException>(() => korisnik1.ZeljeniMaxGodina = maxDesiredAge);
+            StringAssert.Equals(ex.Message, ("Neispravni željeni maksimum godina!"));
+
+        }
+
+        [TestMethod]
+        [DynamicData("PodaciKorisnikNeValidni5")]
+        public void KorisnikPodaciNeValidni5(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
+        {
+            Korisnik korisnik1 = new Korisnik();
+
+            var ex = Assert.ThrowsException<FormatException>(() => korisnik1.ZeljeniMinGodina = minDesiredAge);
+            StringAssert.Equals(ex.Message, ("Neispravni željeni minimum godina!"));
+
+        }
+
+
 
         #endregion
     }
