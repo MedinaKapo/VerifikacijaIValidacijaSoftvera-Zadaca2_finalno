@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Unit_Testovi
 {
+    #region Klasa koja je dodana za zamjenski
     /*kreirana je klasa Recenzija1.
      * Ova klasa treba da sadrzi implementaciju metode DatjUtisak(), koja treba da vraca vrijednost "Pozitivan", ukoliko
      *zelimo da nam prodje definisani test.*/
@@ -18,12 +19,13 @@ namespace Unit_Testovi
             return "Pozitivan";
         }
     }
+    #endregion 
     [TestClass]
  
  
     public class NoviTestovi
     {
-
+        #region PodaciZaDataDriven
         static IEnumerable<object[]> Podaci
         {
             get
@@ -126,7 +128,7 @@ namespace Unit_Testovi
             }
         }
 
-
+        #endregion
         #region Zamjenski Objekti
 
         [TestMethod]
@@ -192,6 +194,9 @@ namespace Unit_Testovi
 
             k.SpajanjeKorisnika();
         }
+
+        #endregion
+        #region Nasi testovi i DataDriven testovi
 
         [TestMethod]
         public void PromjenaParametara()
