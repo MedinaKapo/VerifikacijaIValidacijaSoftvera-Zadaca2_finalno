@@ -6,6 +6,7 @@ using System.Collections.Generic;
 namespace Unit_Testovi
 {
     #region Klasa koja je dodana za zamjenski
+    //Medina Kapo
     /*kreirana je klasa Recenzija1.
      * Ova klasa treba da sadrzi implementaciju metode DatjUtisak(), koja treba da vraca vrijednost "Pozitivan", ukoliko
      *zelimo da nam prodje definisani test.*/
@@ -21,10 +22,85 @@ namespace Unit_Testovi
     }
     #endregion 
     [TestClass]
- 
- 
+
+
     public class NoviTestovi
     {
+        
+        #region Zamjenski Objekti
+
+        [TestMethod]
+        public void TestZamjenskiObjekti()
+        {
+            Korisnik k1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Sarajevo, 20, false);
+            Korisnik k2 = new Korisnik("user2", "user2*+", Lokacija.Sarajevo, Lokacija.Sarajevo, 20, false);
+
+            Chat chat = new Chat(k1, k2);
+            chat.DodajNovuPoruku(k1, k2, "volim te");
+            IRecenzija r = new Recenzija1();
+
+            Komunikator k = new Komunikator();
+            bool uspješnost = k.DaLiJeSpajanjeUspjesno(chat, r);
+
+            Assert.IsTrue(uspješnost);
+        }
+
+        #endregion
+
+        #region TDD
+
+        [TestMethod]
+        public void SpajanjeKorisnikaPoLokaciji()
+        {
+            Korisnik k1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Sarajevo, 20, false);
+            Korisnik k2 = new Korisnik("user2", "user2*+", Lokacija.Sarajevo, Lokacija.Sarajevo, 25, false);
+
+            Komunikator k = new Komunikator();
+            k.RadSaKorisnikom(k1, 0);
+            k.RadSaKorisnikom(k2, 0);
+
+            k.SpajanjeKorisnika();
+
+            Assert.AreEqual(k.Razgovori.Count, 1);
+        }
+
+        [TestMethod]
+        public void SpajanjeKorisnikaPoGodinama()
+        {
+            Korisnik k1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Trebinje, 20, false);
+            Korisnik k2 = new Korisnik("user2", "user2*+", Lokacija.Sarajevo, Lokacija.Bihać, 20, false);
+
+            Komunikator k = new Komunikator();
+            k.RadSaKorisnikom(k1, 0);
+            k.RadSaKorisnikom(k2, 0);
+
+            k.SpajanjeKorisnika();
+
+            Assert.AreEqual(k.Razgovori.Count, 1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void SpajanjeKorisnikaIzuzetak()
+        {
+            Korisnik k1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Trebinje, 20, false);
+            Korisnik k2 = new Korisnik("user2", "user2*+", Lokacija.Sarajevo, Lokacija.Bihać, 25, false);
+
+            Komunikator k = new Komunikator();
+            k.RadSaKorisnikom(k1, 0);
+            k.RadSaKorisnikom(k2, 0);
+
+            k.SpajanjeKorisnika();
+        }
+
+        #endregion
+
+    }
+ #region Nasi testovi i DataDriven testovi
+    [TestClass]
+    public class NasiTestoviIDataDrivenTestovi { 
+       
+        
         #region PodaciZaDataDriven
         static IEnumerable<object[]> Podaci
         {
@@ -129,74 +205,8 @@ namespace Unit_Testovi
         }
 
         #endregion
-        #region Zamjenski Objekti
 
-        [TestMethod]
-        public void TestZamjenskiObjekti()
-        {
-            Korisnik k1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Sarajevo, 20, false);
-            Korisnik k2 = new Korisnik("user2", "user2*+", Lokacija.Sarajevo, Lokacija.Sarajevo, 20, false);
 
-            Chat chat = new Chat(k1, k2);
-            chat.DodajNovuPoruku(k1, k2, "volim te");
-            IRecenzija r = new Recenzija1();
-
-            Komunikator k = new Komunikator();
-            bool uspješnost = k.DaLiJeSpajanjeUspjesno(chat, r);
-
-            Assert.IsTrue(uspješnost);
-        }
-
-        #endregion
-
-        #region TDD
-
-        [TestMethod]
-        public void SpajanjeKorisnikaPoLokaciji()
-        {
-            Korisnik k1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Sarajevo, 20, false);
-            Korisnik k2 = new Korisnik("user2", "user2*+", Lokacija.Sarajevo, Lokacija.Sarajevo, 25, false);
-
-            Komunikator k = new Komunikator();
-            k.RadSaKorisnikom(k1, 0);
-            k.RadSaKorisnikom(k2, 0);
-
-            k.SpajanjeKorisnika();
-
-            Assert.AreEqual(k.Razgovori.Count, 1);
-        }
-
-        [TestMethod]
-        public void SpajanjeKorisnikaPoGodinama()
-        {
-            Korisnik k1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Trebinje, 20, false);
-            Korisnik k2 = new Korisnik("user2", "user2*+", Lokacija.Sarajevo, Lokacija.Bihać, 20, false);
-
-            Komunikator k = new Komunikator();
-            k.RadSaKorisnikom(k1, 0);
-            k.RadSaKorisnikom(k2, 0);
-
-            k.SpajanjeKorisnika();
-
-            Assert.AreEqual(k.Razgovori.Count, 1);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void SpajanjeKorisnikaIzuzetak()
-        {
-            Korisnik k1 = new Korisnik("user1", "user1*+", Lokacija.Sarajevo, Lokacija.Trebinje, 20, false);
-            Korisnik k2 = new Korisnik("user2", "user2*+", Lokacija.Sarajevo, Lokacija.Bihać, 25, false);
-
-            Komunikator k = new Komunikator();
-            k.RadSaKorisnikom(k1, 0);
-            k.RadSaKorisnikom(k2, 0);
-
-            k.SpajanjeKorisnika();
-        }
-
-        #endregion
-        #region Nasi testovi i DataDriven testovi
         //Amar Beslagic 
         [TestMethod]
         public void PromjenaParametara()
@@ -375,7 +385,7 @@ namespace Unit_Testovi
             List<Poruka> rezultatFunckije = k.IzlistavanjeSvihPorukaSaSadržajem(sadrzaj);
             Assert.AreEqual(rezultatFunckije.Count, 1);
         }
-
+        //Medina Kapo
         [TestMethod]
         
         public void IzlistavanjeSvihPorukaSaSadrzajem3()
@@ -384,7 +394,43 @@ namespace Unit_Testovi
             Assert.ThrowsException<ArgumentNullException>(() => k.IzlistavanjeSvihPorukaSaSadržajem("matematika"));
             
         }
+        
+        //Medina Kapo
+        [TestMethod]
+        [DynamicData("Podaci")]
+        public void DodajNovuPoruku(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
+        {
+            Korisnik korisnik1 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            Korisnik korisnik2 = new Korisnik(name, pass, location, desiredLoc, age, divorced);
+            string sadrzaj = "sadrzaj";
+            Chat chat1 = new Chat(korisnik1, korisnik2);
+            chat1.DodajNovuPoruku(korisnik1, korisnik2, sadrzaj);
+            Assert.AreEqual(chat1.Poruke.Count,1);
+        }
+        //Medina Kapo
+        [TestMethod]
+        public void DodajNovuPorukuIzuzetak()
+        {
+            Chat chat1 = new Chat();
+            string sadrzaj = "sadrzaj";
+            Assert.ThrowsException<ArgumentNullException>(()=>chat1.DodajNovuPoruku(null, null, sadrzaj));
+        }
 
+        //Amar Bešlagić
+        [TestMethod]
+        public void DodajNovuPoruku2()
+        {
+            Korisnik korisnik1 = new Korisnik("user3", "user1*+", Lokacija.Sarajevo, Lokacija.Tuzla, 25, false);
+            Korisnik korisnik2 = new Korisnik("user4", "user2*+", Lokacija.Tuzla, Lokacija.Bihać, 25, true);
+            Chat chat1 = new Chat(korisnik1, korisnik2);
+            string sadrzaj = "sadrzaj";
+            chat1.DodajNovuPoruku(korisnik1, korisnik2, sadrzaj);
+            chat1.DodajNovuPoruku(korisnik1, korisnik2, sadrzaj);
+            Assert.AreEqual(chat1.Poruke.Count, 2);
+            
+        }
+
+        //Medina Kapo
         [TestMethod]
         [DynamicData("Podaci")]
         public void sadrzajPorukeIzuzetak(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
@@ -395,7 +441,7 @@ namespace Unit_Testovi
             
             Assert.ThrowsException<InvalidOperationException>(() => new Poruka(korisnik1, korisnik2, sadrzaj));
         }
-
+        //Amar Bešlagić
         [TestMethod]
         [DynamicData("Podaci")]
         public void sadrzajPorukeIzuzetak2(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
@@ -405,7 +451,7 @@ namespace Unit_Testovi
             string sadrzaj = "pogrdna riječ";
             Assert.ThrowsException<InvalidOperationException>(() => new Poruka(korisnik1, korisnik2, sadrzaj));
         }
-
+        //Sara Makešoska - Džebo
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         [DynamicData("Podaci")]
@@ -417,7 +463,7 @@ namespace Unit_Testovi
             Poruka poruka1 = new Poruka(korisnik1, korisnik2, sadrzaj);
 
         }
-
+        //Medina Kapo
         [TestMethod]
         [DynamicData("Podaci")]
         public void DaLiJeSpajanjeUspjesnoIzuzetak(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
@@ -436,7 +482,7 @@ namespace Unit_Testovi
 
             Assert.ThrowsException<InvalidOperationException>(() => k.DaLiJeSpajanjeUspjesno(noviChat, r));
         }
-
+        //Medina Kapo
         [TestMethod]
        // [ExpectedException(typeof(ArgumentException))]
         public void SpajanjeKorisnikaIzuzetakMoj()
@@ -444,7 +490,7 @@ namespace Unit_Testovi
             Komunikator k = new Komunikator();
             Assert.ThrowsException<ArgumentException>(() => k.SpajanjeKorisnika());
         }
-
+        //Amar Bešlagić
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         [DynamicData("Podaci")]
@@ -457,7 +503,7 @@ namespace Unit_Testovi
             k.RadSaKorisnikom(korisnik2,0);
 
                 }
-
+        //Amar Bešlagić
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void RadSaKorisnikomIzuzetak2()
@@ -467,7 +513,7 @@ namespace Unit_Testovi
             k.RadSaKorisnikom(korisnik1, 1);
 
         }
-
+        //Sara Makešoska-Džebo
         [TestMethod]
         public void DodavanjeRazgovoraIzuzetak()
         {
@@ -476,7 +522,7 @@ namespace Unit_Testovi
             var ex = Assert.ThrowsException<ArgumentException>(() => k.DodavanjeRazgovora(lista, true));
             Assert.AreEqual(ex.Message, ("Nemoguće dodati razgovor!"));
         }
-
+        //Medina Kapo
         [TestMethod]
         public void GrupniChatNull()
         {
@@ -485,7 +531,7 @@ namespace Unit_Testovi
             Assert.IsNotNull(grupniChat.Korisnici);
         }
 
-
+        //Medina Kapo
         [TestMethod]
         [DynamicData("Podaci")]
         public void DodavanjeRazgovoraIzuzetak2(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
@@ -497,7 +543,7 @@ namespace Unit_Testovi
             var ex = Assert.ThrowsException<ArgumentException>(() => k.DodavanjeRazgovora(lista, true));
             Assert.AreEqual(ex.Message, ("Nemoguće dodati razgovor!"));
         }
-
+        //Sara Makešoska - Džebo
         [TestMethod]
         [DynamicData("Podaci")]
         public void DodavanjeRazgovoraIzuzetak3(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
@@ -513,7 +559,7 @@ namespace Unit_Testovi
             var ex = Assert.ThrowsException<ArgumentException>(() => k.DodavanjeRazgovora(lista, false));
             Assert.AreEqual(ex.Message, ("Nemoguće dodati razgovor!"));
         }
-
+        //Medina Kapo
         [TestMethod]
         [DynamicData("Podaci")]
         public void DodavanjeRazgovora4(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
@@ -530,7 +576,7 @@ namespace Unit_Testovi
             k.DodavanjeRazgovora(lista, true);
             Assert.ReferenceEquals(k.Razgovori, noviChat);
         }
-
+        //Sara Makešoska - Džebo
         [TestMethod]
         [DynamicData("Podaci")]
         public void DodavanjeRazgovora5(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
@@ -545,7 +591,7 @@ namespace Unit_Testovi
             k.DodavanjeRazgovora(lista, true);
             Assert.IsFalse(Assert.ReferenceEquals(k.Razgovori[0], noviChat));
         }
-
+        //Sara Makešoska - Džebo
         [TestMethod]
         [DynamicData("Podaci")]
         public void DodavanjeRazgovora6(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
@@ -561,7 +607,7 @@ namespace Unit_Testovi
 
             Assert.IsFalse(Assert.ReferenceEquals(k.Razgovori[0], chat1));
         }
-
+        //Amar Bešlagić
         [TestMethod]
         [DynamicData("Podaci")]
         public void RadSaKorisnikom2(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)
@@ -573,7 +619,7 @@ namespace Unit_Testovi
             k.RadSaKorisnikom(korisnik2, 1);
             Assert.AreEqual(k.Korisnici.Count, 1);
         }
-
+        //Medina Kapo
         [TestMethod]
         [DynamicData("Podaci")]
         public void RadSaKorisnikom3(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0) { 
@@ -588,6 +634,7 @@ namespace Unit_Testovi
             k.RadSaKorisnikom(korisnik2, 1);
             Assert.AreEqual(k.Razgovori.Count, 0);
         }
+        //Medina Kapo
         [TestMethod]
         [DynamicData("Podaci")]
         public void PosaljiPorukuViseKorisnikaIzuzetak(string name, string pass, Lokacija location, Lokacija desiredLoc, int age, bool divorced, int minDesiredAge = 0, int maxDesiredAge = 0)

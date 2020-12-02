@@ -153,7 +153,7 @@ namespace Kupid
         /// Medina Kapo
         public void PromjenaParametara(bool slično)
         {
-            if (lokacija == null || godine == null) throw new ArgumentNullException("Greska");
+            
             if (slično)
             {
                 zeljenaLokacija = lokacija;
@@ -169,7 +169,7 @@ namespace Kupid
                     Type type = typeof(Lokacija);
 
                     Array values = type.GetEnumValues();
-                    //Array values = Enum.GetValues(type);
+                    
 
                     int index = random.Next(values.Length);
                     Lokacija value = (Lokacija)values.GetValue(index);

@@ -83,7 +83,7 @@ namespace Kupid
         /// Sara Makešoska-Džebo
         public void DodajNovuPoruku(Korisnik primalac, Korisnik posiljalac, string sadrzaj)
         {
-            if (primalac == null || posiljalac == null) throw new ArgumentNullException("greska");
+            if (primalac == null || posiljalac == null) throw new ArgumentNullException("Greska");
             korisnici.Add(primalac);
             korisnici.Add(posiljalac);
             if (poruke.Count == 0) pocetakChata = DateTime.Now;
